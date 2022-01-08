@@ -1,6 +1,7 @@
 package ro.unibuc.tennistournaments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import ro.unibuc.tennistournaments.domain.Category;
 import ro.unibuc.tennistournaments.domain.SignedInPlayer;
@@ -65,7 +66,12 @@ public class SignedInPlayerService {
         }
 
         SignedInPlayer savedSignedInPlayer = repository.save(signedInPlayer);
-        emailService.sendSimpleEmail(playerDto.getEmail(), "Your sign-in was successfully registered, see you soon on the court :)", tournamentDto.getName() + " sign-in" );
+        try {
+            emailService.sendSimpleEmail(playerDto.getEmail(), "Your sign-in was successfully registered, see you soon on the court :)", tournamentDto.getName() + " sign-in" );
+        }
+        catch (MailException e){
+            System.out.println("Mail wasn't sent");
+        }
         playerService.updatePocketBudgetReduce(signedInPlayer.getPlayerId(), category.getTax());
         return mapper.mapToDto(savedSignedInPlayer);
     }

@@ -1,6 +1,7 @@
 package ro.unibuc.tennistournaments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import ro.unibuc.tennistournaments.domain.PlayerPosition;
 import ro.unibuc.tennistournaments.domain.SignedInPlayer;
@@ -40,7 +41,12 @@ public class PlayerPositionService {
             TournamentPhase firstPhase = findTournamentFirstPhase(tournamentDto);
             PlayerPosition playerPosition = PlayerPosition.builder().tournamentId(tournamentId).position(randomPositions.get(i)).playerId(players.get(i).getId()).hasLost(false).currentPhase(firstPhase).build();
             playerPositionRepository.save(playerPosition);
-            emailService.sendSimpleEmail(players.get(i).getEmail(), "The draw for the ", tournamentDto.getName() + " tournament has been published" );
+            try {
+                emailService.sendSimpleEmail(players.get(i).getEmail(), "The draw for the ", tournamentDto.getName() + " tournament has been published" );
+            }
+            catch (MailException e){
+                continue;
+            }
         }
         return players;
     }

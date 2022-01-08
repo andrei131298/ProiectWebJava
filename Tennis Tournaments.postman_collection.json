@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "77451df4-53b6-4afb-8787-9b524b534f40",
+		"name": "Tennis Tournaments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Sorin\",\r\n    \"lastName\": \"Alexandrescu\",\r\n    \"email\": \"sorin@yahoo.com\",\r\n    \"level\": \"STARTER\",\r\n    \"pocketBudget\": 0,\r\n    \"points\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/player",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tournamentCategory\": \"BRONZE\",\r\n    \"prizeMoney\": 200,\r\n    \"tax\": 100\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create tournament",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cupa Bucuresti\",\r\n    \"levelAccepted\": \"STARTER\",\r\n    \"startDate\": \"2022-01-20\",\r\n    \"endDate\": \"2022-01-26\",\r\n    \"signInStartDate\": \"2022-01-01\",\r\n    \"signInEndDate\": \"2022-01-14\",\r\n    \"numberOfPlayers\": 4,\r\n    \"tournamentType\": \"SINGLES\",\r\n    \"categoryId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/tournament",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"tournament"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create signedInList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tournamentId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/signedInList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"signedInList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign in player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"signedInListId\": 1,\r\n    \"playerId\": 1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/signedInPlayer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"signedInPlayer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create draw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/playerPosition/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"playerPosition",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add match result",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"playerPosition1\": 1,\r\n    \"playerPosition2\": 2,\r\n    \"result\":\"7-3 2-7 6-6\",\r\n    \"tournamentId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all players from a tournament with positions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/playerPosition/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"playerPosition",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ranking by level",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/player/STARTER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"player",
+						"STARTER"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add money in pocketBudget",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

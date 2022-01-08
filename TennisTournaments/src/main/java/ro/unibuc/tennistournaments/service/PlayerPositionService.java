@@ -17,23 +17,14 @@ import java.util.List;
 @Service
 public class PlayerPositionService {
 
-    @Autowired
-    private PlayerPositionRepository playerPositionRepository;
-
-    @Autowired
-    private TournamentService tournamentService;
-
-    @Autowired
-    private SignedInListService signedInListService;
-
-    @Autowired
-    private SignedInPlayerService signedInPlayerService;
-
-    @Autowired
-    private PlayerService playerService;
+    @Autowired private PlayerPositionRepository playerPositionRepository;
+    @Autowired private TournamentService tournamentService;
+    @Autowired private SignedInListService signedInListService;
+    @Autowired private SignedInPlayerService signedInPlayerService;
+    @Autowired private PlayerService playerService;
+    @Autowired private EmailSenderService emailService;
 
     public List<PlayerDto> create(Long tournamentId) {
-//        PlayerPosition savedPlayerPosition = playerPositionRepository.save(playerPosition);
         TournamentDto tournamentDto = tournamentService.getOne(tournamentId);
         SignedInListDto signedInListDto = signedInListService.getByTournament(tournamentDto.getId());
         List<SignedInPlayer> signedInPlayers = signedInPlayerService.getAllSignedInPlayersByList(signedInListDto.getId());
@@ -41,7 +32,6 @@ public class PlayerPositionService {
         for(SignedInPlayer p : signedInPlayers){
             players.add(playerService.getOne(p.getPlayerId()));
          }
-//        Collections.sort(players, Comparator.comparingInt(PlayerDto::getPoints).reversed());
         List<Integer> randomPositions = new ArrayList<Integer>();
         for (int i = 1; i <= players.size(); i++)
             randomPositions.add(i);
@@ -49,8 +39,8 @@ public class PlayerPositionService {
         for(int i = 0; i < players.size(); i++) {
             TournamentPhase firstPhase = findTournamentFirstPhase(tournamentDto);
             PlayerPosition playerPosition = PlayerPosition.builder().tournamentId(tournamentId).position(randomPositions.get(i)).playerId(players.get(i).getId()).hasLost(false).currentPhase(firstPhase).build();
-
             playerPositionRepository.save(playerPosition);
+            emailService.sendSimpleEmail(players.get(i).getEmail(), "The draw for the ", tournamentDto.getName() + " tournament has been published" );
         }
         return players;
     }

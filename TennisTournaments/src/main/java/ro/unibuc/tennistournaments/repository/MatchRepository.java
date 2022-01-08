@@ -1,7 +1,7 @@
 package ro.unibuc.tennistournaments.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import ro.unibuc.tennistournaments.domain.Match;
+import org.springframework.stereotype.Repository;
 
-public class MatchRepository {
+@Repository
+public interface MatchRepository{
 }

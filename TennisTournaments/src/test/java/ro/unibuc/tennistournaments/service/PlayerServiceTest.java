@@ -57,7 +57,7 @@ public class PlayerServiceTest {
     }
 
     @Test
-    void test_getOne_whenIdExists() {
+    void test_getOne_byEmail() {
         //arrange
         String email = "andrei131298@yahoo.com";
         PlayerDto playerDto = aPlayerDto("Andrei", "Alexandrescu");

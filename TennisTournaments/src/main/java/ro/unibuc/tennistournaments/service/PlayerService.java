@@ -32,8 +32,8 @@ public class PlayerService {
         return playerMapper.mapToDto(player);
     }
 
-    public PlayerDto getOneByEmail(String username) {
-        return playerMapper.mapToDto(playerRepository.findByEmail(username).orElseThrow(() -> new ProjectException("No User")));
+    public PlayerDto getOneByEmail(String email) {
+        return playerMapper.mapToDto(playerRepository.findByEmail(email).orElseThrow(() -> new ProjectException("No player")));
 
     }
 

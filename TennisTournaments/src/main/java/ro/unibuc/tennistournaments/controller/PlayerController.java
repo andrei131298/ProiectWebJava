@@ -34,4 +34,9 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.findAllByLevel(level));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<PlayerDto> findByEmail(@PathVariable String email){
+        return ResponseEntity.ok(playerService.getOneByEmail(email));
+    }
+
 }
